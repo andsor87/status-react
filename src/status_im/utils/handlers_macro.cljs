@@ -25,11 +25,14 @@
                            (select-keys new-fx mergable-keys)))
         {:merging-fx-with-common-keys common-keys}))))
 
-(defn merge-effects [{:keys [db] :as initial-cofx} handler args]
-  (reduce (fn [fx arg]
-            (let [temp-cofx (update-db initial-cofx fx)]
-              (safe-merge
-               fx
-               (handler arg temp-cofx))))
-          {:db db}
-          args))
+(defn merge-effects
+  ([{:keys [db] :as cofx} handler args]
+   (merge-effects {:db db} cofx handler args))
+  ([initial-fx cofx handler args]
+   (reduce (fn [fx arg]
+             (let [temp-cofx (update-db cofx fx)]
+               (safe-merge
+                fx
+                (handler arg temp-cofx))))
+           initial-fx
+           args)))
