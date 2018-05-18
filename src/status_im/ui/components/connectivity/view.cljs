@@ -15,11 +15,13 @@
 
 (defn error-view [_]
   (let [offline?             (re-frame/subscribe [:offline?])
-        connection-problem?  (re-frame/subscribe [:connection-problem?])
+        disconnected?        (re-frame/subscribe [:disconnected?])
+        mailserver-error?    (re-frame/subscribe [:mailserver-error?])
+        fetching?            (re-frame/subscribe [:fetching?])
         offline-opacity      (animation/create-value 0.0)
         on-update            (fn [_ _]
                                (animation/set-value offline-opacity 0)
-                               (when (or @offline? @connection-problem?)
+                               (when (or @offline? @disconnected? @mailserver-error? @fetching?)
                                  (start-error-animation offline-opacity)))
         current-chat-contact (re-frame/subscribe [:get-current-chat-contact])
         view-id              (re-frame/subscribe [:get :view-id])]
@@ -33,12 +35,14 @@
       (fn [{:keys [top]}]
         (when-let [label (cond
                            @offline? :t/offline
-                           @connection-problem? :t/mailserver-reconnect
+                           @disconnected? :t/disconnected
+                           @mailserver-error? :t/mailserver-reconnect
+                           @fetching? :t/fetching-messages
                            :else nil)]
           (let [pending? (and (:pending @current-chat-contact) (= :chat @view-id))]
             [react/animated-view {:style (styles/text-wrapper top offline-opacity window-width pending?)}
              [react/view
               [react/text {:style    styles/text
-                           :on-press (when @connection-problem?
+                           :on-press (when @mailserver-error?
                                        #(re-frame/dispatch [:inbox/reconnect]))}
                (i18n/label label)]]])))})))
