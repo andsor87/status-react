@@ -1,11 +1,19 @@
 (ns status-im.ui.components.tooltip.styles
-  (:require [status-im.ui.components.styles :as styles]))
+  (:require [status-im.ui.components.styles :as styles]
+            [status-im.ui.components.colors :as colors]))
 
 (def tooltip-container
   {:position    :absolute
    :align-items :center
    :left        0
    :right       0
+   :top         0})
+
+(def bottom-tooltip-container
+  {:position    :absolute
+   :align-items :center
+   :left        12
+   :right       12
    :top         0})
 
 (defn tooltip-animated [bottom-value opacity-value]
@@ -22,10 +30,27 @@
    :background-color   color
    :border-radius      8})
 
+(def bottom-tooltip-text-container
+  {:flex-direction     :row
+   :align-items        :center
+   :margin-horizontal  12
+   :padding-horizontal 16
+   :padding-vertical   9
+   :background-color   colors/gray-notifications
+   :border-radius      8})
+
 (defn tooltip-text [font-size]
   {:color     styles/color-red-2
    :font-size font-size})
 
+(def bottom-tooltip-text
+  {:color     colors/white
+   :font-size 15})
+
 (def tooltip-triangle
-  {:width   16
-   :height  8})
+  {:width  16
+   :height 8})
+
+(def close-icon
+  {:margin-right 4
+   :margin-left  10})
