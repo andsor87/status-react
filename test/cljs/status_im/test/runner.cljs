@@ -10,6 +10,7 @@
             [status-im.test.wallet.transactions.views]
             [status-im.test.profile.events]
             [status-im.test.bots.events]
+            [status-im.test.transport.core]
             [status-im.test.chat.models]
             [status-im.test.chat.models.input]
             [status-im.test.chat.models.message]
@@ -50,6 +51,7 @@
  'status-im.test.profile.events
  'status-im.test.data-store.realm.core
  'status-im.test.bots.events
+ 'status-im.test.transport.core
  'status-im.test.wallet.subs
  'status-im.test.wallet.transactions.subs
  'status-im.test.wallet.transactions.views

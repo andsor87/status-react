@@ -36,6 +36,15 @@
  (fn []
    (status/init-jail)))
 
+(defn initialize-protocol
+  [{:data-store/keys [transport mailservers] :keys [db web3] :as cofx} [current-account-id ethereum-rpc-url]]
+  (handlers-macro/merge-fx cofx
+                           {:db (assoc db
+                                       :web3 web3
+                                       :rpc-url (or ethereum-rpc-url constants/ethereum-rpc-url)
+                                       :transport/chats transport)}
+                           (transport.inbox/add-custom-mailservers mailservers)
+                           (transport/init-whisper current-account-id)))
 ;;; INITIALIZE PROTOCOL
 (handlers/register-handler-fx
  :initialize-protocol
@@ -43,14 +52,7 @@
   (re-frame/inject-cofx ::get-web3)
   (re-frame/inject-cofx :data-store/get-all-mailservers)
   (re-frame/inject-cofx :data-store/transport)]
- (fn [{:data-store/keys [transport mailservers] :keys [db web3] :as cofx} [current-account-id ethereum-rpc-url]]
-   (handlers-macro/merge-fx cofx
-                            {:db (assoc db
-                                        :web3 web3
-                                        :rpc-url (or ethereum-rpc-url constants/ethereum-rpc-url)
-                                        :transport/chats transport)}
-                            (transport.inbox/add-custom-mailservers mailservers)
-                            (transport/init-whisper current-account-id))))
+ initialize-protocol)
 
 ;;; NODE SYNC STATE
 
