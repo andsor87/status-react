@@ -12,8 +12,9 @@
  (fn [{:keys [db now] :as cofx} [_ chain wnode]]
    (let [settings (get-in db [:account/account :settings])]
      (handlers-macro/merge-fx cofx
-                              {:dispatch [:logout]}
-                              (accounts-events/update-settings (assoc-in settings [:wnode chain] wnode))))))
+                              (accounts-events/update-settings
+                               (assoc-in settings [:wnode chain] wnode)
+                               [:logout])))))
 
 (handlers/register-handler-fx
  :connect-wnode

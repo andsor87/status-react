@@ -40,7 +40,9 @@
  :mailserver-set-input
  (fn [{db :db} [_ input-key value]]
    {:db (update db :mailservers/manage assoc input-key {:value value
-                                                        :error (and (string? value) (empty? value))})}))
+                                                        :error (if (= input-key :name)
+                                                                 (string/blank? value)
+                                                                 (not (utils.inbox/valid-enode-address? value)))})}))
 
 (handlers/register-handler-fx
  :edit-mailserver

@@ -253,6 +253,7 @@
                         [:listen-to-network-status]
                         [:initialize-geth]]}))
 
+
 (handlers/register-handler-fx
  :logout
  (fn [{:keys [db] :as cofx} [this-event encryption-key]]

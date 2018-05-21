@@ -2,6 +2,7 @@
   (:require-macros [status-im.utils.views :as views])
   (:require [re-frame.core :as re-frame]
             [status-im.i18n :as i18n]
+            [status-im.utils.config :as config]
             [status-im.ui.components.icons.vector-icons :as vector-icons]
             [status-im.ui.components.list.views :as list]
             [status-im.ui.components.react :as react]
@@ -37,8 +38,9 @@
      [toolbar/toolbar {}
       toolbar/default-nav-back
       [toolbar/content-title (i18n/label :t/offline-messaging-settings)]
-      [toolbar/actions
-       [(toolbar.actions/add false navigate-to-add-mailserver)]]]
+      (when config/add-custom-mailservers-enabled?
+        [toolbar/actions
+         [(toolbar.actions/add false navigate-to-add-mailserver)]])]
      [react/view styles/wrapper
       [list/flat-list {:data               (vals wnodes)
                        :default-separator? false

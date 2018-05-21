@@ -21,8 +21,15 @@
   (data-source/change-account address new-account? encryption-key handler))
 
 (defn- perform-transactions [transactions realm]
-  (data-source/write realm #(doseq [transaction transactions]
-                              (transaction realm))))
+  (let [success-events (->> transactions
+                            (map :success-event)
+                            (filter identity))
+        transaction (map (fn [{:keys [transaction] :as f}]
+                           (or transaction f)) transactions)]
+    (data-source/write realm #(doseq [transaction transactions]
+                                (transaction realm)))
+    (doseq [event success-events]
+      (re-frame/dispatch event))))
 
 (re-frame/reg-fx
  :data-store/base-tx
