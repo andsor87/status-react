@@ -42,7 +42,7 @@
  :mailserver-set-input
  (fn [{db :db} [_ input-key value]]
    {:db (update db :mailservers/manage merge {input-key {:value value
-                                                      :error (and (string? value) (empty? value))}})}))
+                                                         :error (and (string? value) (empty? value))}})}))
 
 (handlers/register-handler-fx
  :edit-mailserver

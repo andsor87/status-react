@@ -10,9 +10,7 @@
    [status-im.ui.components.toolbar.view :as toolbar]
    [status-im.ui.components.list.views :as list]
    [status-im.ui.components.text-input.view :as text-input]
-   [status-im.ui.screens.offline-messaging-settings.edit-mailserver.styles :as styles]
-   [status-im.ui.components.checkbox.view :as checkbox]))
-
+   [status-im.ui.screens.offline-messaging-settings.edit-mailserver.styles :as styles]))
 
 (views/defview edit-mailserver []
   (views/letsubs [manage-mailserver [:get-manage-mailserver]

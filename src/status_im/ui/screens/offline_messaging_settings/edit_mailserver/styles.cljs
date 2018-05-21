@@ -1,7 +1,5 @@
 (ns status-im.ui.screens.offline-messaging-settings.edit-mailserver.styles
-  (:require-macros [status-im.utils.styles :refer [defstyle]])
-  (:require [status-im.ui.components.colors :as colors]
-            [status-im.ui.components.styles :as styles]))
+  (:require-macros [status-im.utils.styles :refer [defstyle]]))
 
 (def edit-mailserver-view
   {:flex              1
@@ -10,16 +8,6 @@
 
 (def input-container
   {:margin-bottom 15})
-
-(def network-type
-  {:flex-direction :row
-   :align-items    :center})
-
-(defstyle network-type-text
-  {:color   colors/black
-   :ios     {:font-size      17
-             :letter-spacing -0.2}
-   :android {:font-size 16}})
 
 (def bottom-container
   {:flex-direction    :row
