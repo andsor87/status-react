@@ -213,7 +213,8 @@
  (fn [{:keys [db]} _]
    (let [web3     (:web3 db)
          wnode    (get-current-wnode-address db)
-         password (:inbox/password db)]
+         password (or (:password wnode)
+                      (:inbox/password db))]
      {:shh/generate-sym-key-from-password {:password   password
                                            :web3       web3
                                            :on-success (fn [_ sym-key-id]
