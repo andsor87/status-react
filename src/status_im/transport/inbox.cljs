@@ -3,6 +3,7 @@
   (:require [re-frame.core :as re-frame]
             [status-im.native-module.core :as status]
             [status-im.utils.handlers :as handlers]
+            [status-im.utils.handlers-macro :as handlers-macro]
             [status-im.transport.utils :as transport.utils]
             [status-im.utils.config :as config]
             [taoensso.timbre :as log]
@@ -178,6 +179,13 @@
 (def ^:private ^:const long-retry-delay-ms 5000)
 (def ^:private ^:const max-retries 10)
 (def ^:private ^:const retries-interval-change-threshold 3)
+
+(defn add-custom-mailservers [mailservers {:keys [db]}]
+  {:db (reduce (fn [db {:keys [id chain] :as mailserver}]
+                 (assoc-in db [:inbox/wnodes (keyword chain) id]
+                           (-> mailserver
+                               (dissoc :chain)
+                               (assoc :user-defined true)))) db mailservers)})
 
 (handlers/register-handler-fx
  :inbox/check-peer-added

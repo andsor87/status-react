@@ -70,12 +70,7 @@
   ;; delete the realm file if its schema version is higher
   ;; than existing schema version (this means the previous
   ;; install has incompatible database schemas)
-  (if-let [current-version (realm-version file-name encryption-key)]
-    (if (> current-version
-           (apply max (map :schemaVersion base/schemas)))
-      (reset-realm file-name schemas encryption-key)
-      (migrate-realm file-name schemas encryption-key))
-    (reset-realm file-name schemas encryption-key)))
+  (migrate-realm file-name schemas encryption-key))
 
 (defn- index-entity-schemas [all-schemas]
   (into {} (map (juxt :name identity)) (-> all-schemas last :schema)))

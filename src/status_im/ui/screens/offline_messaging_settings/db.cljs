@@ -9,7 +9,10 @@
 (spec/def :wnode/address (spec/and string? #(re-matches enode-address-regex %)))
 (spec/def :wnode/name ::not-blank-string)
 (spec/def :wnode/id ::not-blank-string)
-(spec/def :wnode/wnode (allowed-keys :req-un [:wnode/address :wnode/name :wnode/id]))
+(spec/def :wnode/user-defined boolean?)
+(spec/def :wnode/password (spec/nilable string?))
+(spec/def :wnode/wnode (allowed-keys :req-un [:wnode/address :wnode/name :wnode/id]
+                                     :opt-un [:wnode/user-defined :wnode/password]))
 
 (spec/def :inbox/password ::not-blank-string)
 (spec/def :inbox/wnodes (spec/nilable (spec/map-of keyword? (spec/map-of :wnode/id :wnode/wnode))))
