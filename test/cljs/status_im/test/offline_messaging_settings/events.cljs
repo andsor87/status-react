@@ -7,7 +7,7 @@
     (let [cofx {:random-id "random-id"
                 :db {:network "mainnet_rpc"
                      :account/account {:networks {"mainnet_rpc"
-                                                  {:config "{\"NetworkId\":1}"}}}
+                                                  {:config {:NetworkId 1}}}}
                      :mailservers/manage {:name {:value "test-name"}
                                           :url  {:value "enode://test-id:test-password@url:port"}}
 
