@@ -139,6 +139,7 @@
 (spec/def ::db (allowed-keys
                 :opt
                 [:contacts/contacts
+                 :contacts/dapps
                  :contacts/new-identity
                  :contacts/new-public-key-error
                  :contacts/identity
