@@ -5,7 +5,6 @@
             [status-im.data-store.realm.schemas.account.v1.message :as message]
             [status-im.data-store.realm.schemas.account.v1.request :as request]
             [status-im.data-store.realm.schemas.account.v1.user-status :as user-status]
-            [status-im.data-store.realm.schemas.account.v1.contact-group :as contact-group]
             [status-im.data-store.realm.schemas.account.v1.local-storage :as local-storage]
             [status-im.data-store.realm.schemas.account.v1.browser :as browser]
             [goog.object :as object]
@@ -19,7 +18,6 @@
              message/schema
              request/schema
              user-status/schema
-             contact-group/schema
              local-storage/schema
              browser/schema])
 
